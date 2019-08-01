@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <localRepository>/u01/maven/SINOSOFT</localRepository>
+  <pluginGroups>
+  </pluginGroups>
+
+  <proxies>
+    <!--
+    <proxy>
+      <id>optional</id>
+      <active>true</active>
+      <protocol>http</protocol>
+      <username>proxyuser</username>
+      <password>proxypass</password>
+      <host>proxy.host.net</host>
+      <port>80</port>
+      <nonProxyHosts>local.net|some.host.com</nonProxyHosts>
+    </proxy>
+    -->
+  </proxies>
+
+  <servers>
+	<server>
+		<id>nexus-releases</id>
+		<username>LISNG</username>
+		<password>LISNG123456</password>
+	</server>
+	<server>
+		<id>nexus</id>
+		<username>LISNG</username>
+		<password>LISNG123456</password>
+	</server>
+	<server>
+		<id>sinosoftltd</id>
+		<username>admin</username>
+		<password>ilovesino123</password>
+	</server>
+  </servers>
+  
+  <mirrors>
+	<mirror>
+		<id>nexus-aliyun</id>
+		<mirrorOf>central</mirrorOf>
+		<name>Nexus aliyun</name>
+		<url>http://maven.aliyun.com/nexus/content/groups/public</url>
+	</mirror>
+  </mirrors>
+
+  <profiles>
+	<profile>
+		<id>jdk1.8</id>
+		<activation>
+			<activeByDefault>true</activeByDefault>
+			<jdk>1.8</jdk>
+		</activation>
+		<properties>
+			<maven.compiler.source>1.8</maven.compiler.source>
+			<maven.compiler.target>1.8</maven.compiler.target>
+			<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+			<encoding>UTF-8</encoding>
+		</properties>
+	</profile>
+	<profile>
+		<id>nexus</id>
+		<repositories>
+			<repository>
+				<id>central</id>
+				<url>http://central</url>
+				<releases><enabled>true</enabled></releases>
+				<snapshots><enabled>true</enabled></snapshots>
+			</repository>
+		</repositories>
+		<pluginRepositories>
+			<pluginRepository>
+				<id>central</id>
+				<url>http://central</url>
+				<releases><enabled>true</enabled></releases>
+				<snapshots><enabled>true</enabled></snapshots>
+			</pluginRepository>
+		</pluginRepositories>
+	</profile>
+	<profile>
+		<id>nexus-release</id>
+		<repositories>
+			<repository>
+				<id>nexus</id>
+				<name>local private nexus</name>
+				<url>http://111.231.116.90:9001/repository/LISNG/</url>
+				<releases>
+					<enabled>true</enabled>
+					<updatePolicy>always</updatePolicy>
+					<checksumPolicy>warn</checksumPolicy>
+				</releases>
+				<snapshots><enabled>false</enabled></snapshots>
+		</repository>
+		</repositories>
+		<pluginRepositories>
+			<pluginRepository>
+				<id>nexus</id>
+				<name>local private nexus</name>
+				<url>http://111.231.116.90:9001/repository/LISNG/</url>
+				<releases>
+					<enabled>true</enabled>
+					<updatePolicy>always</updatePolicy>
+					<checksumPolicy>warn</checksumPolicy>
+				</releases>
+				<snapshots><enabled>false</enabled></snapshots>
+			</pluginRepository>
+		</pluginRepositories>
+	</profile>
+	<profile>
+		<id>nexus-sinosoftltd</id>
+		<repositories>
+			<repository>
+				<id>sinosoftltd</id>
+				<name>local private sinosoftltd</name>
+				<url>http://111.231.116.90:9001/repository/phodopus/</url>
+				<releases>
+					<enabled>true</enabled>
+					<updatePolicy>always</updatePolicy>
+					<checksumPolicy>warn</checksumPolicy>
+				</releases>
+				<snapshots><enabled>false</enabled></snapshots>
+		</repository>
+		</repositories>
+		<pluginRepositories>
+			<pluginRepository>
+				<id>sinosoftltd</id>
+				<name>local private sinosoftltd</name>
+				<url>http://111.231.116.90:9001/repository/phodopus/</url>
+				<releases>
+					<enabled>true</enabled>
+					<updatePolicy>always</updatePolicy>
+					<checksumPolicy>warn</checksumPolicy>
+				</releases>
+				<snapshots><enabled>false</enabled></snapshots>
+			</pluginRepository>
+		</pluginRepositories>
+	</profile>
+  </profiles>
+
+</settings>

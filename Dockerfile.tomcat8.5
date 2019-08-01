@@ -1,0 +1,54 @@
+FROM docker.io/centos:latest
+
+LABEL Darksunfly
+
+ENV REFRESHED_AT 2019-8-1
+
+RUN yum install -y wget git vim && \ 
+	yum clean all
+
+WORKDIR /u01
+
+RUN mkdir data \
+	&& mkdir ant \
+	&& mkdir jdk \
+	&& mkdir tomcat \
+	&& mkdir maven 
+
+ADD jdk1.8.0_201 /u01/jdk/
+
+ADD apache-tomcat-8.5.39 /u01/tomcat/
+
+ADD apache-maven-3.6.1 /u01/maven/
+
+ADD apache-ant-1.9.14 /u01/ant/
+
+RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
+
+ENV TZ=Asia/Shanghai
+
+ENV LANG=en_US.UTF-8
+
+ENV JAVA_HOME=/u01/jdk
+
+ENV JRE_HOME=/u01/jdk/jre
+
+ENV CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib
+
+ENV CATALINA_HOME=/u01/tomcat
+
+ENV CATALINA_BASE=/u01/tomcat
+
+ENV ANT_HOME=/u01/ant
+
+ENV MAVEN_HOME=/u01/maven
+
+ENV JENKINS_HOME=/u01/tomcat/webapps/JenkinsWorkspace
+
+ENV PATH=/sbin:$PATH:$JAVA_HOME/bin:$JRE_HOME/bin:$JENKINS_HOME:$CATALINA_HOME/lib:$CATALINA_HOME/bin:$ANT_HOME/bin:$MAVEN_HOME/bin
+
+ENV export JAVA_HOME JRE_HOME PATH CLASSPATH JENKINS_HOME MAVEN_HOME ANT_HOME CATALINA_BASE CATALINA_HOME
+
+EXPOSE 8089 22
+
+ENTRYPOINT /u01/tomcat/bin/startup.sh && tail -f /u01/tomcat/logs/catalina.out
